@@ -1,0 +1,182 @@
+<p id="notice"><%= notice %></p>
+<p>
+  <b>Name:</b>
+  <%= @team.name %>
+</p>
+
+<p>
+  <b>Budget:</b>
+  <%= @team.budget %>
+</p>
+
+<p>
+  <b>Wins:</b>
+  <%= @team.wins %>
+</p>
+
+<p>
+  <b>Losses:</b>
+  <%= @team.losses %>
+</p>
+ <b>Points:</b>
+<%= @team.score_sum %>
+</p>
+<table>
+<tr>
+<th>player</th>
+<th>position</th>
+<th>nba team</th>
+<th>fantasy points this week</th>
+</tr>	
+<tr>
+<% if @team.player_ownerships.where(:position => "C").empty? %>
+<td>No C, Add 2</td>
+</tr>
+<% elsif @team.player_ownerships.where(:position => "C").size == 1%>
+<tr>
+<td><%= @team.c.first %></td>
+<td><%= @team.c.second %></td>
+<td><%= @team.c.third %></td>
+<td><%= @team.score1 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.c.fourth, :player_id => @team.c.fifth %></td>
+</tr>
+<tr>
+<td>Only 1 C, Add Another</td>
+</tr>
+<% elsif @team.player_ownerships.where(:position => "C").size == 2 %>
+<tr>
+<td><%= @team.c[0] %></td>
+<td><%= @team.c[1] %></td>
+<td><%= @team.c[2] %></td>
+<td><%= @team.score1 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.c[3], :player_id => @team.c[4] %></td>
+</tr>
+<tr>
+<td><%= @team.c[5] %></td>
+<td><%= @team.c[6] %></td>
+<td><%= @team.c[7] %></td>
+<td><%= @team.score2 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.c[8], :player_id => @team.c[9] %></td>
+</tr>
+<% end %>
+<tr>
+<% if @team.player_ownerships.where(:position => "F").empty? %>
+<td>No F, Add 3</td>
+</tr>
+<% elsif @team.player_ownerships.where(:position => "F").size == 1%>
+<tr>
+<td><%= @team.f[0] %></td>
+<td><%= @team.f[1] %></td>
+<td><%= @team.f[2] %></td>
+<td><%= @team.score1 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.f[3], :player_id => @team.f[4] %></td>
+</tr>
+<tr>
+<td>Only 1 F, Add 2 more </td>
+</tr>
+<% elsif @team.player_ownerships.where(:position => "F").size == 2 %>
+<tr>
+<td><%= @team.f[0] %></td>
+<td><%= @team.f[1] %></td>
+<td><%= @team.f[2] %></td>
+<td><%= @team.score1 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.f[3], :player_id => @team.f[4] %></td>
+</tr>
+<tr>
+<td><%= @team.f[5] %></td>
+<td><%= @team.f[6] %></td>
+<td><%= @team.f[7] %></td>
+<td><%= @team.score2 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.f[8], :player_id => @team.f[9] %></td>
+</tr>
+</tr>
+<tr>
+<td>Only 2 F, Add 1 more </td>
+</tr>
+<% elsif @team.player_ownerships.where(:position => "F").size == 3 %>
+<tr>
+<td><%= @team.f[0] %></td>
+<td><%= @team.f[1] %></td>
+<td><%= @team.f[2] %></td>
+<td><%= @team.score3 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.f[3], :player_id => @team.f[4] %></td>
+</tr>
+<tr>
+<td><%= @team.f[5] %></td>
+<td><%= @team.f[6] %></td>
+<td><%= @team.f[7] %></td>
+<td><%= @team.score4 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.f[8], :player_id => @team.f[9] %></td>
+</tr>
+<tr>
+	<td><%= @team.f[10] %></td>
+	<td><%= @team.f[11] %></td>
+	<td><%= @team.f[12] %></td>
+	<td><%= @team.score5 %></td>
+	<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.f[13], :player_id => @team.f[14] %></td>
+	</tr>
+
+	</tr>
+<% end %>
+</tr>
+</tr>
+<tr>
+<% if @team.player_ownerships.where(:position => "G").empty? %>
+<td>No G, Add 3</td>
+</tr>
+<% elsif @team.player_ownerships.where(:position => "G").size == 1%>
+<tr>
+<td><%= @team.g[0] %></td>
+<td><%= @team.g[1] %></td>
+<td><%= @team.g[2] %></td>
+<td><%= @team.score6 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.g[3], :player_id => @team.g[4] %></td>
+</tr>
+<tr>
+<td>Only 1 G, Add 2 more </td>
+</tr>
+<% elsif @team.player_ownerships.where(:position => "G").size == 2 %>
+<tr>
+<td><%= @team.g[0] %></td>
+<td><%= @team.g[1] %></td>
+<td><%= @team.g[2] %></td>
+<td><%= @team.score6 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.g[3], :player_id => @team.g[4] %></td>
+</tr>
+<tr>
+<td><%= @team.g[5] %></td>
+<td><%= @team.g[6] %></td>
+<td><%= @team.g[7] %></td>
+<td><%= @team.score7 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.g[8], :player_id => @team.g[9] %></td>
+</tr>
+</tr>
+<tr>
+<td>Only 2 G, Add 1 more </td>
+</tr>
+<% elsif @team.player_ownerships.where(:position => "G").size == 3 %>
+<tr>
+<td><%= @team.g[0] %></td>
+<td><%= @team.g[1] %></td>
+<td><%= @team.g[2] %></td>
+<td><%= @team.score6 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.g[3], :player_id => @team.g[4] %></td>
+</tr>
+<tr>
+<td><%= @team.g[5] %></td>
+<td><%= @team.g[6] %></td>
+<td><%= @team.g[7] %></td>
+<td><%= @team.score7 %></td>
+<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.g[8], :player_id => @team.g[9] %></td>
+</tr>
+<tr>
+	<td><%= @team.g[10] %></td>
+	<td><%= @team.g[11] %></td>
+	<td><%= @team.g[12] %></td>
+	<td><%= @team.score8 %></td>
+	<td><%= link_to 'Drop This Player', :action => 'destroy', :controller => 'player_ownerships', :id => @team.g[13], :player_id => @team.g[14] %></td>
+	</tr>
+
+	</tr>
+<% end %>
+</table>

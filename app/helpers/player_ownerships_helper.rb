@@ -1,0 +1,2 @@
+module PlayerOwnershipsHelper
+end

@@ -1,0 +1,45 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Fgs:</b>
+  <%= @game.fgs %>
+</p>
+
+<p>
+  <b>Three ponters:</b>
+  <%= @game.three_ponters %>
+</p>
+
+<p>
+  <b>Rebs:</b>
+  <%= @game.rebs %>
+</p>
+
+<p>
+  <b>Assists:</b>
+  <%= @game.assists %>
+</p>
+
+<p>
+  <b>Blocks:</b>
+  <%= @game.blocks %>
+</p>
+
+<p>
+  <b>Steals:</b>
+  <%= @game.steals %>
+</p>
+
+<p>
+  <b>Turnovers:</b>
+  <%= @game.turnovers %>
+</p>
+
+<p>
+  <b>Player:</b>
+  <%= @game.player_id %>
+</p>
+
+
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>

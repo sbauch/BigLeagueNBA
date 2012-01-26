@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>BigLeague</title>
+  <%= stylesheet_link_tag    "application" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body> 
+        <nav id="topNav">  
+<ul>  
+<li><%= link_to "Home", root_path %></a></li>  
+<% if user_signed_in? %>
+<li><%= link_to "My Team", current_user.team %></a></li>
+<% end %>  
+<li><%= link_to "Leagues", leagues_path %> </a></li>  
+<li><%= link_to "Players", players_path %></a></li> 
+	<li>
+	<div id="user_nav">
+	  <% if user_signed_in? %>
+	    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+	  <% else %>
+	    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
+	  <% end %>
+	</div>
+</li> 
+<li><%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
+</li>
+</ul>  
+</nav>
+<%= yield %>
+</body>
+</html>

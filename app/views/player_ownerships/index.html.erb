@@ -1,0 +1,25 @@
+<h1>Listing player_ownerships</h1>
+
+<table>
+  <tr>
+    <th>Player</th>
+    <th>Team</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @player_ownerships.each do |player_ownership| %>
+  <tr>
+    <td><%= player_ownership.player_id %></td>
+    <td><%= player_ownership.team_id %></td>
+    <td><%= link_to 'Show', player_ownership %></td>
+    <td><%= link_to 'Edit', edit_player_ownership_path(player_ownership) %></td>
+    <td><%= link_to 'Destroy', player_ownership, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Player ownership', new_player_ownership_path %>
