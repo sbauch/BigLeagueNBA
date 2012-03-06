@@ -6,7 +6,6 @@ class TeamsController < ApplicationController
   # GET /teams.json
   def index
     @teams = Team.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @teams }
@@ -18,6 +17,8 @@ class TeamsController < ApplicationController
   def show
     @team = Team.find(params[:id])
     @player_ownerships = @team.player_ownerships
+    @user = current_user
+    @opponents = @user.opponents
     
     # For giving team value. Needs work - must add all owned players' values to available budget
     # @team_value = @team.budget + @players.all.value
@@ -25,6 +26,7 @@ class TeamsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @team }
+        format.js  
     end
   end
 

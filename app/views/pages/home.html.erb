@@ -1,2 +1,15 @@
-<h1>Pages#home</h1>
-<p>Find me in app/views/pages/home.html.erb</p>
+<div class="content">
+<div class="row">
+	<div class="span12">
+	
+	<div class="page-header">
+		<% if user_signed_in? %>
+		<center><h2>Around the Big League</h2>
+		
+		<p>Multifaceted page with mix of friends, players, league info.</p></center>
+		<% else %>
+		<center><h2>Welcome to Big League Fantasy Sports</h2></center>
+		<center>
+			<br><h3>
+			  <form method="get" action="/users/sign_up"><input class="btn" type="submit" value="Register and Draft Your Team"/></form>or <form method="get" action="/users/sign_in"><input class="btn primary large" type="submit" value="Sign In"/>
+		<% end%>

@@ -1,0 +1,38 @@
+<h3>
+<%= team.name %>	 Points: <%= team.score_sum %>	
+
+	</h3>
+	
+<table class="table-striped table-bordered table-condensed">
+			<th>Player</th>
+			<th>FGM</th>
+			<th>3PT</th>
+			<th>Fantasy Pts</th>
+<% @team.cref.each do |p| %>
+<tr>
+<td><%= p.name %></td>
+<td></td>
+<td></td>
+<td><%= @team.score(p.name, p.id) %></td>
+</tr>
+<% end %>	
+
+<% @team.fref.each do |p| %>
+<tr>
+<td><%= p.name %></td>
+<td></td>
+<td></td>
+<td><%= @team.score(p.name, p.id) %></td>
+</tr>
+<% end %>
+
+<% @team.gref.each do |p| %>
+<tr>
+<td><%= p.name %></td>
+<td></td>
+<td></td>
+<td><%= @team.score(p.name, p.id) %></td>
+</tr>
+<% end %>
+</table>
+<%= link_to('Back', '/matchups', :remote => true) %>

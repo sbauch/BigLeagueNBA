@@ -46,8 +46,9 @@ end
   # GET /players
   # GET /players.json
   def index
-    @players = Player.all
-
+    @centers = Player.where(:position => "C").sort_by { |p| -p.season_fantasy }
+    @forwards = Player.where(:position => "F").sort_by { |p| -p.season_fantasy }
+    @guards = Player.where(:position => "G").sort_by { |p| -p.season_fantasy }
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @players }

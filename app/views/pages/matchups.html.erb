@@ -1,0 +1,99 @@
+<div class="content">
+	<p id="notice"><%= notice %></p>
+	
+<div class="row">
+	<div class="span5 offset2 well">
+<h3>
+  <%= @team.name %>	Points:
+	<% if  @team.player_ownerships.size < 8  %>
+	Incomplete Team
+	<% else %>
+	<%= @team.score_sum %>
+	<% end %>
+</h3>
+<h2>
+  <%= @user.wins %>-<%= @user.losses %>
+</h2>
+<h6><% unless (@user.wins + @user.losses) == 0 %>
+	 .<%=  ((@user.wins.to_f / (@user.wins.to_f + @user.losses.to_f))*1000).to_i %> WIN %
+	<% end %>
+	</h6>
+</p>
+<table class="table-striped table-bordered table-condensed">
+			<th>Player</th>
+			<th>FGM</th>
+			<th>3PT</th>
+			<th>Fantasy Pts</th>
+<% @team.cref.each do |p| %>
+<tr>
+<td><%= p.name %></td>
+<td></td>
+<td></td>
+<td><%= @team.score(p.name, p.id) %></td>
+</tr>
+<% end %>	
+
+<% @team.fref.each do |p| %>
+<tr>
+<td><%= p.name %></td>
+<td></td>
+<td></td>
+<td><%= @team.score(p.name, p.id) %></td>
+</tr>
+<% end %>
+
+<% @team.gref.each do |p| %>
+<tr>
+<td><%= p.name %></td>
+<td></td>
+<td></td>
+<td><%= @team.score(p.name, p.id) %></td>
+</tr>
+<% end %>
+</table>
+</div>
+<div class="span5 well">
+	<div id="list">
+	<h2>Opponents</h2>
+	<% @opponents.each do |team| %>	
+	<%= link_to(team, :remote => :true ) do %>
+	<div>  
+		<% if @team.score_sum > team.score_sum %><h3 style="color:#46a546">
+	<%= team.name %>	 Points: <%= team.score_sum %>	
+	
+		</h3>
+		<% end %>
+		</div>	
+		
+	<% end %>
+	
+	<% end %>
+	</div>
+	<div id="team">
+	</div>
+	</div>
+	<div id="row">
+		<div class="span10 offset2 well">
+			<% if @authentications %>
+			 <% unless @authentications.empty? %>
+			  <p><strong>Your BigLeagues</strong></p>
+			   <div class="authentications">
+			    <% for authentication in @authentications %>
+			     <div class="authentication">
+			      <div class="provider"><%= authentication.provider.titleize %>  </div>
+			       <%= link_to "X", authentication, :confirm => 'Are you sure you want to stop playing your Twitter friends?', :method => :delete, :class => "remove" %>
+			     </div>
+			     <% end %>
+				 <% else %>
+				  <p><strong>Connect with Twitter to start competing against your friends</strong></p>
+				<a href="/users/auth/twitter" class="auth_provider">Sign in with Twitter</a>
+			     <div class="clear"></div>
+			    </div>
+			   <% end %>
+
+
+			<% end %>
+			</div>
+			</div>
+	</div>
+	

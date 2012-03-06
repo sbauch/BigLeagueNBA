@@ -1,0 +1,2 @@
+$('#team').html("");
+$('#list').html('<h2>Opponents</h2><% @opponents.each do |team| %><%= link_to(team, :remote => :true ) do %><div><% if @team.score_sum > team.score_sum %><h3 style="color:#46a546"><%= team.name %> Points: <%= team.score_sum %></h3><% end %></div><% end %><% end %>');

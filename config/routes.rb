@@ -1,15 +1,15 @@
 BigLeague::Application.routes.draw do  
+  resources :authentications
+  get '/auth/:provider/callback' => 'authentications#create'
   get '/users/auth/:provider' => 'users/omniauth_callbacks#passthru'
-  
   resources :games
-
+  get 'leagues/:id/new', :controller => 'league_memberships', :action => 'create'
   get 'players/:id/new', :controller => 'player_ownerships', :action => 'create'
   get 'player_ownerships/:id', :controller => 'player_ownerships', :action => 'destroy'  
-  
+  get 'matchups' => 'pages#matchups'
   resources :player_ownerships
 
-  get "pages/home"
-
+  resources :pages
   root :to =>  "pages#home"
 
   #match "players/:action", :controller => 'players', :action => 'add_player'
@@ -22,6 +22,7 @@ BigLeague::Application.routes.draw do
   resources :teams
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
+  devise_for :users, :controllers => {:registrations => "registrations"}
 
   
   # The priority is based upon order of creation:

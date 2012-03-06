@@ -11,14 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120126013859) do
+ActiveRecord::Schema.define(:version => 20120127222645) do
 
-  create_table "Player_ownerships", :force => true do |t|
-    t.integer  "player_id"
-    t.integer  "team_id"
+  create_table "authentications", :force => true do |t|
+    t.integer  "user_id"
+    t.string   "provider"
+    t.string   "uid"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "position"
+    t.string   "secret"
+    t.string   "token"
   end
 
   create_table "games", :force => true do |t|
@@ -51,6 +53,14 @@ ActiveRecord::Schema.define(:version => 20120126013859) do
     t.datetime "updated_at"
   end
 
+  create_table "player_ownerships", :force => true do |t|
+    t.integer  "player_id"
+    t.integer  "team_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "position"
+  end
+
   create_table "players", :force => true do |t|
     t.string   "name"
     t.string   "nba_team"
@@ -71,21 +81,15 @@ ActiveRecord::Schema.define(:version => 20120126013859) do
   create_table "teams", :force => true do |t|
     t.string   "name"
     t.integer  "user_id"
-    t.integer  "wins"
-    t.integer  "losses"
+    t.integer  "wins",                 :default => 0
+    t.integer  "losses",               :default => 0
     t.boolean  "complete"
     t.float    "points"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "budget",            :default => 1000
-    t.integer  "fgs_sum",           :default => 0
-    t.integer  "three_ponters_sum", :default => 0
-    t.integer  "rebs_sum",          :default => 0
-    t.integer  "assists_sum",       :default => 0
-    t.integer  "blocks_sum",        :default => 0
-    t.integer  "steals_sum",        :default => 0
-    t.integer  "turnovers_sum",     :default => 0
-    t.float    "fantasy_points",    :default => 0.0
+    t.integer  "budget",               :default => 1000
+    t.float    "fantasy_points",       :default => 0.0
+    t.float    "fantasy_points_total", :default => 0.0
   end
 
   create_table "users", :force => true do |t|

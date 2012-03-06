@@ -1,0 +1,13 @@
+$primaryButtonBackground: #3053F0; 
+$navbarBackground: #2E66B2;
+$navbarBackgroundHighlight: #3053F0; 
+@import 'bootstrap';
+ body {
+background: url('/wood.png') repeat ;
+  margin: 0;
+  background-attachment:fixed;
+  padding-top: 120px;
+.right {width:100px; text-align:right;}
+
+}
+

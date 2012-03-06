@@ -1,8 +1,10 @@
-<h1>Listing players</h1>
-
+<div id="content">
+	<div id="row">
+<div class="span4 well" style="padding-top:40px;">
+<h2>Centers</h2>
 <table>
 
-<% @players.each do |player| %>
+<% @centers.each do |player| %>
   <tr>
 	<td><%= player.nba_team %></td>
     <td><%= player.position %></td>
@@ -11,6 +13,32 @@
   </tr>
 <% end %>
 </table>
+</div>
+<div class="span4 well" style="padding-top:40px;">
+	<h2>Forwards</h2>
+<table>
 
-<br />
+<% @forwards.each do |player| %>
+  <tr>
+	<td><%= player.nba_team %></td>
+    <td><%= player.position %></td>
+    <td><%= player.value %></td>
+    <td><%= link_to player.name, player %></td>
+  </tr>
+<% end %>
+</table>
+</div>
+<div class="span4 well" style="padding-top:40px;">
+<table>
+<h2>Guards</h2>
+<% @guards.each do |player| %>
+  <tr>
+	<td><%= player.nba_team %></td>
+    <td><%= player.position %></td>
+    <td><%= player.value %></td>
+    <td><%= link_to player.name, player %></td>
+  </tr>
+<% end %>
+</table>
+</div>
 

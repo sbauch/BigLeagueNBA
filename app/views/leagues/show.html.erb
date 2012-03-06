@@ -9,6 +9,8 @@
   <b>Description:</b>
   <%= @league.description %>
 </p>
+<%= @league.members.join '  ' %>
+<%= link_to 'Join This League', :action => :create, :controller => 'league_memberships' %>
 
 
 <%= link_to 'Edit', edit_league_path(@league) %> |

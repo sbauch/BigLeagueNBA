@@ -2,32 +2,33 @@
 <html>
 <head>
   <title>BigLeague</title>
-  <%= stylesheet_link_tag    "application" %>
+  <%= stylesheet_link_tag    "nba" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
 </head>
 <body> 
-        <nav id="topNav">  
-<ul>  
-<li><%= link_to "Home", root_path %></a></li>  
+	<div class="navbar navbar-fixed-top">
+	  <div class="navbar-inner">
+	<div class="container">
+	<div class="brand"><%= link_to image_tag("/logo.png"), root_path %>
+		</div>
+<ul class="nav">  
 <% if user_signed_in? %>
-<li><%= link_to "My Team", current_user.team %></a></li>
-<% end %>  
-<li><%= link_to "Leagues", leagues_path %> </a></li>  
-<li><%= link_to "Players", players_path %></a></li> 
-	<li>
-	<div id="user_nav">
-	  <% if user_signed_in? %>
-	    <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
-	  <% else %>
-	    <%= link_to "Sign up", new_user_registration_path %> or <%= link_to "sign in", new_user_session_path %>
-	  <% end %>
-	</div>
-</li> 
-<li><%= link_to "Sign in with Twitter", user_omniauth_authorize_path(:twitter) %>
-</li>
+<li><%= link_to "My Team", current_user.team %></li>
+<li><%= link_to "Matchups", '/matchups' %></li>  
+<li><%= link_to "Players", players_path %></li>
+ <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+  <% else %>
+    <li><%= link_to "Register", new_user_registration_path %></li> 
+    <li><%= link_to "Sign In", new_user_session_path %></li>
+  <% end %> 
+
 </ul>  
-</nav>
+</div>
+</div>
+</div>
+</div>
 <%= yield %>
-</body>
+
+
 </html>

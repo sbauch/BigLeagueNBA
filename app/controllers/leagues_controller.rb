@@ -3,6 +3,11 @@ class LeaguesController < ApplicationController
   # GET /leagues.json
   def index
     @leagues = League.all
+     @authentications = current_user.authentications if current_user
+    #    secret = @authentications.where(:provider => "twitter")[0]['secret']
+    #    @followings = Twitter.friend_ids['ids']
+     
+   
 
     respond_to do |format|
       format.html # index.html.erb
@@ -14,7 +19,10 @@ class LeaguesController < ApplicationController
   # GET /leagues/1.json
   def show
     @league = League.find(params[:id])
-
+    @league_memberships = @league.league_memberships
+    @authentications = current_user.authentications if current_user
+    secret = @authentications.where(:provider => "twitter")[0]['secret']
+    @followings = Twitter.friend_ids['ids']
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @league }

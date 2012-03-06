@@ -1,43 +1,48 @@
 class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
-    def method_missing(provider)
-      if !User.omniauth_providers.index(provider).nil?
-        #omniauth = request.env["omniauth.auth"]
-        omniauth = env["omniauth.auth"]
-
-        if current_user #or User.find_by_email(auth.recursive_find_by_key("email"))
-          current_user.user_tokens.find_or_create_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
-           flash[:notice] = "Authentication successful"
-           redirect_to edit_user_registration_path
+  def passthru
+    render :file => "#{Rails.root}/public/404.html", :status => 404, :layout => false
+    # Or alternatively,
+    # raise ActionController::RoutingError.new('Not Found')
+  end
+public
+def twitter
+      omniauth = request.env["omniauth.auth"]
+      authentication = Authentication.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
+      if authentication
+        flash[:notice] = "Signed in successfully."
+        sign_in_and_redirect(:user, authentication.user)
+      elsif current_user
+        current_user.authentications.create!(:provider => omniauth['provider'], :uid => omniauth['uid'], :secret => omniauth['credentials']['secret'], :token => omniauth['credentials']['token'])
+        flash[:notice] = "Authentication successful."
+        redirect_to leagues_path
+      else
+        user = User.new
+        user.authentications.build(:provider => omniauth['provider'], :uid => omniauth['uid'], :secret => omniauth['credentials']['secret'], :token => omniauth['credentials']['token'])
+        if user.save
+          flash[:notice] = "Signed in successfully."
+          sign_in_and_redirect(:user, user)
         else
-
-        authentication = UserToken.find_by_provider_and_uid(omniauth['provider'], omniauth['uid'])
-
-          if authentication
-            flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => omniauth['provider']
-            sign_in_and_redirect(:user, authentication.user)
-            #sign_in_and_redirect(authentication.user, :event => :authentication)
-          else
-
-            #create a new user
-            unless omniauth.recursive_find_by_key("email").blank?
-              user = User.find_or_initialize_by_email(:email => omniauth.recursive_find_by_key("email"))
-            else
-              user = User.new
-            end
-
-            user.apply_omniauth(omniauth)
-            #user.confirm! #unless user.email.blank?
-
-            if user.save
-              flash[:notice] = I18n.t "devise.omniauth_callbacks.success", :kind => omniauth['provider'] 
-              sign_in_and_redirect(:user, user)
-            else
-              session[:omniauth] = omniauth.except('extra')
-              redirect_to new_user_registration_url
-            end
-          end
+          session[:omniauth] = omniauth.except('extra')
+          redirect_to new_user_registration_url
         end
       end
     end
+def failure
+   set_flash_message :alert, :failure, :kind => failed_strategy.name.to_s.humanize, :reason => failure_message
+   redirect_to after_omniauth_failure_path_for(resource_name)
+ end
 
-  end
+ protected
+
+ def failed_strategy
+   env["omniauth.error.strategy"]
+ end
+
+ def failure_message
+   exception = env["omniauth.error"]
+   error   = exception.error_reason if exception.respond_to?(:error_reason)
+   error ||= exception.error        if exception.respond_to?(:error)
+   error ||= env["omniauth.error.type"].to_s
+   error.to_s.humanize if error
+ end
+end

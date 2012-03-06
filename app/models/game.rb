@@ -4,7 +4,8 @@ class Game < ActiveRecord::Base
              :primary_key => 'name'
   after_save :update_player_totals
 
-  
+
+
  private 
   def update_player_totals
      Player.update_counters player.id,

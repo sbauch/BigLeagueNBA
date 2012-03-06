@@ -1,25 +1,27 @@
-<h1>Listing leagues</h1>
-
-<table>
-  <tr>
-    <th>Name</th>
-    <th>Description</th>
-    <th></th>
-    <th></th>
-    <th></th>
-  </tr>
-
-<% @leagues.each do |league| %>
-  <tr>
-    <td><%= league.name %></td>
-    <td><%= league.description %></td>
-    <td><%= link_to 'Show', league %></td>
-    <td><%= link_to 'Edit', edit_league_path(league) %></td>
-    <td><%= link_to 'Destroy', league, confirm: 'Are you sure?', method: :delete %></td>
-  </tr>
-<% end %>
-</table>
-
-<br />
-
-<%= link_to 'New League', new_league_path %>
+<div class="span10">
+<div class="page-header">
+	<center><h2>Your Leagues</h2></center>
+	</div>
+<div class="row">
+	<div class="span10">
+		<% if @authentications %>
+		 <% unless @authentications.empty? %>
+		  <p><strong>Your BigLeagues</strong></p>
+		   <div class="authentications">
+		    <% for authentication in @authentications %>
+		     <div class="authentication">
+		      <div class="provider"><%= authentication.provider.titleize %>  </div>
+		       <%= link_to "X", authentication, :confirm => 'Are you sure you want to stop playing your Twitter friends?', :method => :delete, :class => "remove" %>
+		     </div>
+		     <% end %>
+			 <% else %>
+			  <p><strong>Connect with Twitter to start competing against your friends</strong></p>
+			<a href="/users/auth/twitter" class="auth_provider">Sign in with Twitter</a>
+		     <div class="clear"></div>
+		    </div>
+		   <% end %>
+		   
+		 
+		<% end %>
+		
+		

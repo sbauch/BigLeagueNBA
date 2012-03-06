@@ -68,7 +68,7 @@ class PlayerOwnershipsController < ApplicationController
         format.html { redirect_to current_user.team, notice: "You added #{base_player.name}." }
         format.json { render json: @player_ownership, status: :created, location: @player_ownership }
       else
-        format.html { render action: "new" }
+        format.html { redirect_to current_user.team, notice: "You have the maximum number of #{base_player.position} on your team. Drop one #{base_player.position} to add #{base_player.name}." }
         format.json { render json: @player_ownership.errors, status: :unprocessable_entity }
       end
     end

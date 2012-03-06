@@ -7,7 +7,7 @@ class Ability
       user ||= User.new # guest user (not logged in)
         #can :manage, Team, :user_id => user.id
         can :manage, Player, :all
-        can :destroy, PlayerOwnership, :team_id => user.team.id
+        can :manage, PlayerOwnership, :team_id => user.team.id
     #
     # The first argument to `can` is the action you are giving the user permission to do.
     # If you pass :manage it will apply to every action. Other common actions here are
